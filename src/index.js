@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {useContext, useReducer} from "react";
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import Context from "./Reducer/context";
+import reducer from "./Reducer";
+
+
+const Root = () => {
+  const initialState=useContext(Context)
+  const [state,dispatch]=useReducer(reducer,initialState)
+
+  return (
+    <Context.Provider value={{state,dispatch}}>
+      <App />
+    </Context.Provider>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <Root/>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
