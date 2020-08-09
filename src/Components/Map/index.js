@@ -27,7 +27,7 @@ export default function MapContainer(props){
                 height="100%"
                 zoom={5}
                 mapStyle="mapbox://styles/mapbox/streets-v10"
-                mapboxApiAccessToken="pk.eyJ1IjoiYWRlcm5pbyIsImEiOiJja2Nqb29qMG8xaTY4MnBvMzB3N29jMDg3In0.d3JLxGXmQ_sYNI6gK3nldw"
+                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
                 onViewportChange={position=>setViewport(position)}
                 {...viewport}
             >
