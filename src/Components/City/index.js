@@ -7,11 +7,13 @@ import Loading from '../Loading'
 import MapContainer from '../Map'
 import Place from '../Place'
 
+
 export default function City(){
     const { state } = useContext(Context);
     const [loading, setLoading] = useState(false);
     const [data,setData]=useState({})
-
+    const [time, setTime] = useState('d')
+    
     useEffect(()=>{
         setLoading(true)
         getData(state.city)
@@ -19,22 +21,24 @@ export default function City(){
 
     const getData=async(city)=>{
         const place = city.replace(' ','+')
-        const result = await api.get(`data/2.5/weather?q=${place}&appid=93dec6639288ca8983c1d9a803323cc6`)
-        console.log(result.data)
+        const result = await api.get(`data/2.5/weather?q=${place}&appid=${process.env.REACT_APP_WEATHER}`)
         setData(result.data)
+        const final = result.data.weather[0].icon.slice(2)
+        setTime(final)  
         setLoading(false)
     }
 
     return(
         <>
-            {state.city!='' ?
-            <div>
+            {state.city!=='' ?
+            <>
                 {loading ?
                     <Loading load={loading} />   
                 :
                     <Container>
-                        <Place 
+                        <Place time={time} 
                             name={data.name}
+                            country={data.sys.country}
                             icon={data.weather[0].icon}  
                             temp={data.main.temp} 
                             max={data.main.temp_max} 
@@ -43,17 +47,17 @@ export default function City(){
                         <MapContainer coord={data.coord} />
                     </Container>
                 }
-            </div>
+            </>
             :
-            <div style={{margin:24}}>
-                <Subtitle>{state.city=='' ? 'Sugestões de Cidades' : state.city }</Subtitle>
+            <>
+                <Subtitle>{state.city==='' ? 'Sugestões de Cidades' : state.city }</Subtitle>
                 <Container>
                     <Card place={'Tokyo'} />
                     <Card place={'London'} />
                     <Card place={'Brasilia'} />
                     <Card place={'Dubai'} /> 
                 </Container>  
-            </div>
+            </>
             }   
         </>
     )

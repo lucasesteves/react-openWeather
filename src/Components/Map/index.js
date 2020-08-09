@@ -4,11 +4,19 @@ import { Container } from './styles'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapPin } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types';
 
 export default function MapContainer(props){
+    
+    const { coord } = props;
+
+    MapContainer.propTypes ={
+        coord: PropTypes.object.isRequired,
+    }
+    
     const INITIAL_VIEWPORT={
-        latitude:props.coord.lat,
-        longitude:props.coord.lon,
+        latitude:coord.lat,
+        longitude:coord.lon,
     }
     
     const [viewport, setViewport]= useState(INITIAL_VIEWPORT)
@@ -24,10 +32,8 @@ export default function MapContainer(props){
                 {...viewport}
             >
             <Marker
-                latitude={props.coord.lat}
-                longitude={props.coord.lon}
-                // offsetLeft={-19}
-                // offsetTop={-37}
+                latitude={coord.lat}
+                longitude={coord.lon}
             >
                 <FontAwesomeIcon color={'#ED6F56'} size={'2x'} icon={faMapPin} />
             </Marker>

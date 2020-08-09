@@ -6,10 +6,10 @@ import Context from '../../Reducer/context'
 
 export default function Search(){
     const [search,setSearch]=useState('')
-    const { state, dispatch } = useContext(Context);
+    const { dispatch } = useContext(Context);
 
     const submit=()=>{
-        if(search!=''){
+        if(search!==''){
             dispatch({ type: "SEARCH_PLACE", payload: search });
         }
         else{

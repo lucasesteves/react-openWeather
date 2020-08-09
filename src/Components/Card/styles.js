@@ -4,14 +4,18 @@ export const Card = styled.div`
     height:200px;
     width:200px;
     border-radius:10px;
-    border:2px solid #dedede;
+    /* border:2px solid #dedede; */
     margin:0 20px;
     padding:10px;
+    color:#fff;
     flex:1;
+    box-shadow:3px 3px 3px rgba(0, 0, 0, 0.1);
+    background-image: ${props=>props.time==='d' ? 
+        `linear-gradient(to top, #A86FA1, #8B52A1)` : `linear-gradient(to top, #114F92, #0F347A)`
+    };
 
     &:hover{
         border-color:#999;
-        box-shadow:3px 3px 3px rgba(0, 0, 0, 0.1);
         cursor: pointer;
     }
 
@@ -34,8 +38,9 @@ export const Flex = styled.div`
 
 export const Temp = styled.h1`
     font-family:Roboto, sans-serif;
-    font-size:${props=> props.size}px;
+    font-size:${props=> props && `${props.size}px`};
     margin:0 10px;
+    margin-top:${props=>props && `${props.top}px`};
 `
 
 export const Img = styled.img`
@@ -50,5 +55,8 @@ export const Div = styled.div`
 
 export const Degree = styled.div`
     font-family:Roboto, sans-serif;
+    font-size:24px;
+    font-weight:bold;
     margin-top:5px;
+    margin-left:-5px;
 `
